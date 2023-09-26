@@ -18,21 +18,16 @@
         <thead>
             <tr>
                 <th>Policy ID</th>
-                <th>Premium Amount</th>
                 <th>Status Check</th>
             </tr>
         </thead>
         <tbody>
             <!-- Use Thymeleaf syntax for data binding -->
-            <tr th:each="schedule : ${schedules}">
-                <td th:text="${schedule.iplcId}"></td>
-                <td th:text="${schedule.iplcPremium}"></td>
+            <tr th:each="id : ${distinctIplcIds}">
+                <td th:text="${id}"></td>
                 <td>
-                    <button type="button" class="btn btn-warning custom-button"
-                            th:attr="data-iplcId=${schedule.iplcId}"
-                            onclick="editStatus(this.getAttribute('data-iplcId'))">
-                        Display NonPayment Months
-                    </button>
+                     <button type="button" class="btn btn-warning custom-button"
+                                    th:onclick="'javascript:editStatus(' + ${id} + ')'">Display no of months not paid</button>
                 </td>
             </tr>
         </tbody>
