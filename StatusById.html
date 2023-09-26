@@ -18,24 +18,30 @@
         <thead>
             <tr>
                 <th>Policy ID</th>
-                <th>Schedule Index</th>
-                <th>Schedule Date</th>
                 <th>Premium Amount</th>
-                <th>Paid Date</th>
+                <th>Status Check</th>
             </tr>
         </thead>
         <tbody>
             <!-- Use Thymeleaf syntax for data binding -->
             <tr th:each="schedule : ${schedules}">
                 <td th:text="${schedule.iplcId}"></td>
-                <td th:text="${schedule.iplcSindex}"></td>
-                <td th:text="${schedule.iplcDate}"></td>
                 <td th:text="${schedule.iplcPremium}"></td>
-                <td th:text="${schedule.iplcPaidDate}"></td>
+                <td>
+                    <button type="button" class="btn btn-warning custom-button"
+                            th:attr="data-iplcId=${schedule.iplcId}"
+                            onclick="editStatus(this.getAttribute('data-iplcId'))">
+                        Display NonPayment Months
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
-    
-     <a href="/link">Back to Links</a>
+    <script th:inline="javascript">
+        function editStatus(id) {
+            var urlWithParams = '/nonPaymentStatus?iplcId=' + id;
+            window.location.href = urlWithParams;
+        }
+    </script>
 </body>
 </html>
